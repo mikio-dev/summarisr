@@ -28,7 +28,7 @@ jobs:
 
       - name: Install nltk
         run: |
-          poetry run sudo python -m nltk.downloader -d /usr/local/share/nltk_data punkt
+          poetry run python -m nltk.downloader
 
       - name: Run unit tests
         run: |
