@@ -1,0 +1,38 @@
+# .github/workflows/pytest.yml
+name: pytest
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
+          cd /usr/local/bin && \
+          ln -s /opt/poetry/bin/poetry && \
+          poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        run: |
+          poetry install --no-root
+
+      - name: Run unit tests
+        run: |
+          poetry run pytest -v tests --cov=summarisr --cov-report=xml --cov-report=html --cov-report=term
+
+      - name: Run integration test
+        run: |
+          poetry run pytest -v integration
+        env:
+          TEST_HOSTNAME: localhost
+          TEST_PORT: 8001
