@@ -28,7 +28,7 @@ jobs:
 
       - name: Install nltk
         run: |
-          python -m nltk.downloader -d /usr/local/share/nltk_data punkt
+          sudo python -m nltk.downloader -d /usr/local/share/nltk_data punkt
 
       - name: Run unit tests
         run: |
