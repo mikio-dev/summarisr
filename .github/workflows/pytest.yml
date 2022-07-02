@@ -28,7 +28,7 @@ jobs:
 
       - name: Install nltk
         run: |
-          poetry run python -m nltk.downloader
+          poetry run python -m nltk.downloader punkt
 
       - name: Run unit tests
         run: |
