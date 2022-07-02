@@ -26,6 +26,10 @@ jobs:
         run: |
           poetry install --no-root
 
+      - name: Install nltk
+        run: |
+          python -m nltk.downloader -d /usr/local/share/nltk_data punkt
+
       - name: Run unit tests
         run: |
           poetry run pytest -v tests --cov=summarisr --cov-report=xml --cov-report=html --cov-report=term
